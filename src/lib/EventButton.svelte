@@ -1,11 +1,13 @@
 <script lang="ts">
-    const { name, toWhom, time }: { name: string, toWhom: string, time: string } = $props();
+    const { name, toWhom, time }: { name: string, toWhom: string, time?: string } = $props();
 </script>
 
 <button>
     <p class="poppins-semibold text-xl">{name}</p>
     <p class="whom poppins-regular">{toWhom}</p>
-    <p class="time poppins-semibold text-sm">{time}</p>
+    {#if time}
+        <p class="time poppins-semibold text-sm">{time}</p>
+    {/if}
 </button>
 
 <style>

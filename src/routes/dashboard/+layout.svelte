@@ -35,6 +35,11 @@
         grid-template-rows: calc(100dvh - 70px) 70px;
     }
 
+    main {
+        width: 100%;
+        height: 100%;
+    }
+
     footer {
         height: 70px;
         width: 100%;

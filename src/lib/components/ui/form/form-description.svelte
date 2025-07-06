@@ -1,15 +1,16 @@
 <script lang="ts">
-	import { Drawer as DrawerPrimitive } from "vaul-svelte";
+	import * as FormPrimitive from "formsnap";
+	import type { WithoutChild } from "bits-ui";
 	import { cn } from "$lib/utils.js";
 
 	let {
 		ref = $bindable(null),
 		class: className,
 		...restProps
-	}: DrawerPrimitive.DescriptionProps = $props();
+	}: WithoutChild<FormPrimitive.DescriptionProps> = $props();
 </script>
 
-<DrawerPrimitive.Description
+<FormPrimitive.Description
 	bind:ref
 	class={cn("text-muted-foreground text-sm", className)}
 	{...restProps}

@@ -7,29 +7,33 @@
 	let { children, data } = $props();
 </script>
 
-<main>
-    {@render children()}
-</main>
-<footer>
-    <a href="/dashboard" class="{data.pathname === "/dashboard" ? "selected" : ""}">
-        <img src={homeImg} alt="Home">
-    </a>
-    <a href="/dashboard/calendar" class="{data.pathname === "/dashboard/calendar" ? "selected" : ""}">
-        <img src={calendarImg} alt="Calendar">
-    </a>
-    <a href="/dashboard/groups" class="{data.pathname === "/dashboard/groups" ? "selected" : ""}">
-        <img src={groupsImg} alt="Groups">
-    </a>
-    <a href="/dashboard/addJob" class="{data.pathname === "/dashboard/addJob" ? "selected" : ""}">
-        <img src={addJobImg} alt="Add Job">
-    </a>
-    <a href="/dashboard/settings" class="{data.pathname === "/dashboard/settings" ? "selected" : ""}">
-        <img class="avatar" src={data.avatar} alt="User Avatar" />
-    </a>
-</footer>
+<section>
+    <main>
+        {@render children()}
+    </main>
+    <footer>
+        <a href="/dashboard" class="{data.pathname === "/dashboard" ? "selected" : ""}">
+            <img src={homeImg} alt="Home">
+        </a>
+        <a href="/dashboard/calendar" class="{data.pathname === "/dashboard/calendar" ? "selected" : ""}">
+            <img src={calendarImg} alt="Calendar">
+        </a>
+        <a href="/dashboard/groups" class="{data.pathname === "/dashboard/groups" ? "selected" : ""}">
+            <img src={groupsImg} alt="Groups">
+        </a>
+        <a href="/dashboard/addJob" class="{data.pathname === "/dashboard/addJob" ? "selected" : ""}">
+            <img src={addJobImg} alt="Add Job">
+        </a>
+        <a href="/dashboard/settings" class="{data.pathname === "/dashboard/settings" ? "selected" : ""}">
+            <img class="avatar" src={data.avatar} alt="User Avatar" />
+        </a>
+    </footer>
+</section>
 
 <style>
-    :global(body) {
+    section {
+        width: 100%;
+        height: 100%;
         display: grid;
         grid-template-rows: calc(100vh - 70px) 70px;
         grid-template-rows: calc(100dvh - 70px) 70px;

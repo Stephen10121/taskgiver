@@ -1,31 +1,19 @@
 <script lang="ts">
-    import * as Drawer from "$lib/components/ui/drawer/index.js";
-    import { Button } from "$lib/components/ui/button/index.js";
+    import * as Dialog from "$lib/components/ui/dialog/index.js";
+    import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
 </script>
 
-<Drawer.Root>
-    <Drawer.Trigger>
-        <button class="poppins-semibold joinGroup">Join A Group</button>
-    </Drawer.Trigger>
-    <Drawer.Content>
-        <Drawer.Header>
-        <Drawer.Title>Are you sure absolutely sure?</Drawer.Title>
-        <Drawer.Description>This action cannot be undone.</Drawer.Description>
-        </Drawer.Header>
-        <Drawer.Footer>
-            <Button>Submit</Button>
-            <Drawer.Close>Cancel</Drawer.Close>
-        </Drawer.Footer>
-    </Drawer.Content>
-</Drawer.Root>
-
-<style>
-    .joinGroup {
-        background-color: #EE3F3F;
-        width: 100%;
-        height: 55px;
-        border-radius: 10px;
-        font-size: 20px;
-        color: #ffffff;
-    }
-</style>
+<Dialog.Root>
+    <Dialog.Trigger class={buttonVariants({ variant: "default" })} style="background-color:#EE3F3F;">Join A Group</Dialog.Trigger>
+    <Dialog.Content>
+        <Dialog.Header>
+            <Dialog.Title>Join a group</Dialog.Title>
+            <Dialog.Description>
+                All groups are private by default. You can add users to your group by sharing the group ID.
+            </Dialog.Description>
+        </Dialog.Header>
+        <Dialog.Footer>
+            <Button type="submit" form="creategroupform" style="background-color: #3aa0e9;">Joim Group</Button>
+        </Dialog.Footer>
+    </Dialog.Content>
+</Dialog.Root>

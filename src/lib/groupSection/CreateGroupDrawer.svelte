@@ -1,26 +1,32 @@
 <script lang="ts">
-    import * as Drawer from "$lib/components/ui/drawer/index.js";
-    import { Button } from "$lib/components/ui/button/index.js";
-    import { Input } from "$lib/components/ui/input/index.js";
-    import { Switch } from "$lib/components/ui/switch/index.js";
-    import { Label } from "$lib/components/ui/label/index.js";
-    import { createGroupSchema, type CreateGroupSchema } from "@/schema";
     import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
-    import * as Form from "$lib/components/ui/form/index.js";
+    import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
+    import { createGroupSchema, type CreateGroupSchema } from "@/schema";
+    import * as Dialog from "$lib/components/ui/dialog/index.js";
+    import { Switch } from "$lib/components/ui/switch/index.js";
+    import { Input } from "$lib/components/ui/input/index.js";
     import { zodClient } from "sveltekit-superforms/adapters";
+    import * as Form from "$lib/components/ui/form/index.js";
     import { toast } from "svelte-sonner";
 
     let { data }: { data: { createGroupForm: SuperValidated<Infer<CreateGroupSchema>> } } = $props();
+    let dialogOpen = $state(false);
 
     const createGroupFormActual = superForm(data.createGroupForm, {
+        id: "createGroupForm",
         validators: zodClient(createGroupSchema),
         onUpdate: ({ form: f }) => {
-            if (f.valid) {
-                if (f.valid) {
-                    toast.success(`You submitted ${JSON.stringify(f.data, null, 2)}`);
-                } else {
-                    toast.error("Please fix the errors in the form.");
-                }
+            if (!f.valid) {
+                toast.error("Please fix the errors in the form.");
+            }
+        },
+        onResult: (res) => {
+            const responseResult = res.result as any;
+            if (res.result.status === 200) {
+                toast.success(responseResult.data ? responseResult.data.msg : "Success");
+                dialogOpen = false;
+            } else if (res.result.status === 400) {
+                if (responseResult.data && responseResult.data.msg) toast.error(responseResult.data.msg);
             }
         }
     });
@@ -28,17 +34,17 @@
     const { form: formData, enhance } = createGroupFormActual;
 </script>
 
-<Drawer.Root>
-    <Drawer.Trigger>
-        <button class="poppins-semibold createGroup">Create A Group</button>
-    </Drawer.Trigger>
-    <Drawer.Content>
-        <Drawer.Header>
-            <Drawer.Title>Create a group</Drawer.Title>
-            <Drawer.Description>All groups are private by default. You can add users to your group by sharing the group ID.</Drawer.Description>
-        </Drawer.Header>
+<Dialog.Root bind:open={dialogOpen}>
+    <Dialog.Trigger class={buttonVariants({ variant: "default" })} style="background-color:#3aa0e9;">Create A Group</Dialog.Trigger>
+    <Dialog.Content>
+        <Dialog.Header>
+            <Dialog.Title>Create a group</Dialog.Title>
+            <Dialog.Description>
+                All groups are private by default. You can add users to your group by sharing the group ID.
+            </Dialog.Description>
+        </Dialog.Header>
         <form method="post" use:enhance id="creategroupform" action="?/createGroup">
-            <Form.Field form={createGroupFormActual} name="groupName">
+            <Form.Field form={createGroupFormActual} name="groupName" id="groupName">
                 <Form.Control>
                     {#snippet children({ props })}
                         <Form.Label>Group Name</Form.Label>
@@ -92,12 +98,11 @@
                 <Form.FieldErrors />
             </Form.Field>
         </form>
-        <Drawer.Footer>
+        <Dialog.Footer>
             <Button type="submit" form="creategroupform" style="background-color: #3aa0e9;">Create Group</Button>
-            <Drawer.Close>Cancel</Drawer.Close>
-        </Drawer.Footer>
-    </Drawer.Content>
-</Drawer.Root>
+        </Dialog.Footer>
+    </Dialog.Content>
+</Dialog.Root>
 
 <style>
     .createGroup {
@@ -112,6 +117,5 @@
     form {
         display: flex;
         flex-direction: column;
-        padding: 0 15px;
     }
 </style>

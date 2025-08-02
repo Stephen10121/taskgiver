@@ -8,12 +8,3 @@
 <Toaster />
 
 {@render children()}
-
-<style>
-	:global(html), :global(body) {
-		background-color: #DFDFDF;
-		width: 100vw;
-		height: 100vh;
-		height: 100dvh;
-	}
-</style>

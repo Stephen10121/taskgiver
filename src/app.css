@@ -88,3 +88,10 @@
   font-weight: 600;
   font-style: normal;
 }
+
+html, body {
+  background-color: #DFDFDF;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+}

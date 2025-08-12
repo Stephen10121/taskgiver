@@ -2,6 +2,7 @@
     import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
     import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
     import { createGroupSchema, type CreateGroupSchema } from "@/schema";
+    import { Textarea } from "$lib/components/ui/textarea/index.js";
     import * as Dialog from "$lib/components/ui/dialog/index.js";
     import { Switch } from "$lib/components/ui/switch/index.js";
     import { Input } from "$lib/components/ui/input/index.js";
@@ -27,6 +28,8 @@
                 dialogOpen = false;
             } else if (res.result.status === 400) {
                 if (responseResult.data && responseResult.data.msg) toast.error(responseResult.data.msg);
+            } else if (res.result.status === 500) {
+                if (responseResult.data && responseResult.data.msg) toast.error(responseResult.data.msg);
             }
         }
     });
@@ -49,6 +52,21 @@
                     {#snippet children({ props })}
                         <Form.Label>Group Name</Form.Label>
                         <Input {...props} bind:value={$formData.groupName} placeholder='e.g. "Food Helpers Group"' />
+                    {/snippet}
+                </Form.Control>
+                <Form.FieldErrors>
+                    {#snippet children({ errors, errorProps })}
+                        {#each errors as err}
+                            <span style="color: red;" {...errorProps}>{err}</span>
+                        {/each}
+                    {/snippet}
+                </Form.FieldErrors>
+            </Form.Field>
+            <Form.Field form={createGroupFormActual} name="groupAbout" id="groupAbout">
+                <Form.Control>
+                    {#snippet children({ props })}
+                        <Form.Label>About the group</Form.Label>
+                        <Textarea style="max-height: 200px;" {...props} bind:value={$formData.groupAbout} placeholder='This group is about...' />
                     {/snippet}
                 </Form.Control>
                 <Form.FieldErrors>
@@ -90,8 +108,8 @@
                 <Form.Control>
                     {#snippet children({ props })}
                         <div class="flex items-center space-x-2">
-                            <Switch {...props} style="--primary:205deg 80% 57%;" id="all-can-contribute" checked={$formData.othersCanContribute} />
-                            <Form.Label for="all-can-contribute">Anyone can add tasks</Form.Label>
+                            <Switch {...props} style="--primary:205deg 80% 57%;" id="allcancontribute" checked={$formData.othersCanContribute} />
+                            <Form.Label for="allcancontribute">Anyone can add tasks</Form.Label>
                         </div>
                     {/snippet}
                 </Form.Control>

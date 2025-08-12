@@ -1,6 +1,7 @@
 import { dev } from "$app/environment";
 import { redirect } from "@sveltejs/kit";
 
+
 export const actions = {
     default: async ({ cookies, url, locals }) => {
         locals.pb.authStore.clear();

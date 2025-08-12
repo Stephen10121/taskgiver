@@ -1,7 +1,7 @@
 <script lang="ts">
-    import EventButton from "@/EventButton.svelte";
     import CreateGroupDrawer from "@/groupSection/CreateGroupDrawer.svelte";
     import JoinGroupDrawer from "@/groupSection/JoinGroupDrawer.svelte";
+    import ShowGroupsImIn from "@/groupSection/ShowGroupsImIn.svelte";
 
     let { data } = $props();
 </script>
@@ -9,10 +9,9 @@
 <section class="groups">
     <h1 class="poppins-semibold">Groups</h1>
     <section class="groupslist">
-        <EventButton name="Babysitting Helpers Group" toWhom="Jana Gruzin" />
-        <EventButton name="Food Helpers Group" toWhom="Stephen Gruzin (you)" />
+        <ShowGroupsImIn associatedGroups={data.associatedGroups} userId={data.user.id} />
         <CreateGroupDrawer {data} />
-        <JoinGroupDrawer />
+        <JoinGroupDrawer {data} />
     </section>
 </section>
 

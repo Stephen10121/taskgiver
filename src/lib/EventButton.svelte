@@ -1,17 +1,31 @@
 <script lang="ts">
-    const { name, toWhom, time }: { name: string, toWhom: string, time?: string } = $props();
+    import type { MouseEventHandler } from "svelte/elements";
+
+    const { name, toWhom, time, onclick, href }: { name: string, toWhom: string, time?: string, onclick?: MouseEventHandler<HTMLButtonElement>, href?: string } = $props();
 </script>
 
-<button>
-    <p class="poppins-semibold text-xl">{name}</p>
-    <p class="whom poppins-regular">{toWhom}</p>
-    {#if time}
-        <p class="time poppins-semibold text-sm">{time}</p>
-    {/if}
-</button>
+{#if href}
+    <a {href}>
+        <p class="poppins-semibold text-xl">{name}</p>
+        <p class="whom poppins-regular">{toWhom}</p>
+        {#if time}
+            <p class="time poppins-semibold text-sm">{time}</p>
+        {/if}
+    </a>
+{:else}
+    <button {onclick}>
+        <p class="poppins-semibold text-xl">{name}</p>
+        <p class="whom poppins-regular">{toWhom}</p>
+        {#if time}
+            <p class="time poppins-semibold text-sm">{time}</p>
+        {/if}
+    </button>
+{/if}
 
 <style>
-    button {
+    button,
+    a {
+        text-decoration: none;
         width: 100%;
         height: 70px;
         border: 1px solid #000000;

@@ -18,7 +18,7 @@
         <a href="/dashboard/calendar" class="{data.pathname === "/dashboard/calendar" ? "selected" : ""}">
             <img src={calendarImg} alt="Calendar">
         </a>
-        <a href="/dashboard/groups" class="{data.pathname === "/dashboard/groups" ? "selected" : ""}">
+        <a href="/dashboard/groups" class="{data.pathname.includes("/dashboard/groups") ? "selected" : ""}">
             <img src={groupsImg} alt="Groups">
         </a>
         <a href="/dashboard/addJob" class="{data.pathname === "/dashboard/addJob" ? "selected" : ""}">

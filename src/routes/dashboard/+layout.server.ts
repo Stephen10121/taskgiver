@@ -13,7 +13,7 @@ export async function load({ locals, url }) {
                     }
                 }),
                 locals.pb.collection("groups").getFullList({
-                    filter: `owner = '${locals.user.id}' || members:each = '${locals.user.id}' || pendingMembers:each = '${locals.user.id}'`,
+                    filter: `owner = '${locals.user.id}' || members:each ?= '${locals.user.id}' || pendingMembers:each ?= '${locals.user.id}'`,
                     expand: "owner",
                     headers: {
                         "Authorization": "Bearer " + process.env.POCKETBASE_TOKEN!

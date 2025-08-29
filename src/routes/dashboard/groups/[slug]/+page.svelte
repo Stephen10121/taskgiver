@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-    <title>{data.groupData.groupName} | TaskGiver</title>
+    <title>{data.groupData.name} | TaskGiver</title>
 </svelte:head>
 
 <main class="min-h-screen bg-background p-6">
@@ -19,7 +19,7 @@
             <div class="flex items-center gap-3">
                 <Users class="h-8 w-8 text-primary" />
                 <div>
-                    <h1 class="text-3xl font-bold">{data.groupData.groupName}</h1>
+                    <h1 class="text-3xl font-bold">{data.groupData.name}</h1>
                     {#if data.memberType !== "pending"}
                         <div class="flex items-center gap-2 text-muted-foreground mt-1">
                             <CalendarDays class="h-4 w-4" />

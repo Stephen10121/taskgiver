@@ -7,7 +7,7 @@ config();
 type GroupResponse = ({
     memberType: "owner",
     groupData: {
-        groupName: string,
+        name: string,
         groupId: string,
         groupActualId: string,
         othersCanContribute: boolean,
@@ -35,7 +35,7 @@ type GroupResponse = ({
 } | {
     memberType: "member",
     groupData: {
-        groupName: string,
+        name: string,
         groupId: string,
         othersCanContribute: boolean,
         members: {
@@ -56,7 +56,7 @@ type GroupResponse = ({
 } | {
     memberType: "pending",
     groupData: {
-        groupName: string,
+        name: string,
         groupId: string,
         owner: {
             name: string,
@@ -74,7 +74,7 @@ export async function load({ params, locals, parent }): Promise<GroupResponse> {
     const groupId = params.slug;
     const data = await parent();
 
-    const filteredGroup = data.associatedGroups.filter((group) => group.id === groupId);
+    const filteredGroup = (data.associatedGroups as RecordModel[]).filter((group) => group.id === groupId);
     
     if (filteredGroup.length === 0) return redirect(303, "/dashboard/groups");
 
@@ -92,7 +92,7 @@ export async function load({ params, locals, parent }): Promise<GroupResponse> {
             groupData: {
                 groupId: group.groupId,
                 groupAbout: group.groupAbout,
-                groupName: group.groupName,
+                name: group.name,
                 owner: {
                     name: group.expand ? group.expand.owner.name : "N/A",
                     avatar: group.expand ? group.expand.owner.avatar : "N/A",
@@ -121,7 +121,7 @@ export async function load({ params, locals, parent }): Promise<GroupResponse> {
             groupData: {
                 groupId: group.groupId,
                 groupAbout: group.groupAbout,
-                groupName: group.groupName,
+                name: group.name,
                 othersCanContribute: group.othersCanContribute,
                 created: group.created,
                 owner: {
@@ -141,7 +141,7 @@ export async function load({ params, locals, parent }): Promise<GroupResponse> {
             groupId: group.groupId,
             groupActualId: group.id,
             groupAbout: group.groupAbout,
-            groupName: group.groupName,
+            name: group.name,
             othersCanContribute: group.othersCanContribute,
             created: group.created,
             owner: {

@@ -92,7 +92,7 @@ export async function joinGroupAction(event: RequestEvent<RouteParams, "/dashboa
     }
 
     return {
-        msg: `Successfully joined the pending list of "${group.groupName}"`,
+        msg: `Successfully joined the pending list of "${group.name}"`,
         joinGroupForm
     }
 }

@@ -47,11 +47,11 @@
             </Dialog.Description>
         </Dialog.Header>
         <form method="post" use:enhance id="creategroupform" action="?/createGroup">
-            <Form.Field form={createGroupFormActual} name="groupName" id="groupName">
+            <Form.Field form={createGroupFormActual} name="name" id="name">
                 <Form.Control>
                     {#snippet children({ props })}
                         <Form.Label>Group Name</Form.Label>
-                        <Input {...props} bind:value={$formData.groupName} placeholder='e.g. "Food Helpers Group"' />
+                        <Input {...props} bind:value={$formData.name} placeholder='e.g. "Food Helpers Group"' />
                     {/snippet}
                 </Form.Control>
                 <Form.FieldErrors>

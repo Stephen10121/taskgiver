@@ -52,7 +52,7 @@ export async function createGroupAction(event: RequestEvent<RouteParams, "/dashb
 
     try {
         const record = await event.locals.pb.collection('groups').create({
-            "groupName": groupData.groupName,
+            "name": groupData.name,
             "groupId": groupData.groupId,
             "groupPassword": await generateHashPassword(groupData.groupPassword),
             "othersCanContribute": groupData.othersCanContribute,
@@ -69,7 +69,7 @@ export async function createGroupAction(event: RequestEvent<RouteParams, "/dashb
         console.log("[createGroup] Successfully created group in database:", groupData.groupId);
 
         return {
-            msg: `Successfully created "${createGroupForm.data.groupName}"`,
+            msg: `Successfully created "${createGroupForm.data.name}"`,
             record,
             createGroupForm
         }

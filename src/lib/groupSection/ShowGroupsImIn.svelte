@@ -9,13 +9,13 @@
     {#each associatedGroups as group (`mycurrentgroupslist${group.id}`)}
         {#if (group.members as string[]).includes(userId) || group.owner === userId}
             <EventButton
-                name={group.groupName}
+                name={group.name}
                 toWhom="{group.expand ? group.expand.owner.name : "N/A"} {group.owner === userId ? "(you)" : ""}"
                 href="/dashboard/groups/{group.id}"
             />
         {:else}
             <EventButton
-                name="{group.groupName} (pending)"
+                name="{group.name} (pending)"
                 toWhom={group.expand ? group.expand.owner.name : "N/A"}
                 href="/dashboard/groups/{group.id}"
             />

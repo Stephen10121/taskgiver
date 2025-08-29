@@ -1,11 +1,17 @@
 <script lang="ts">
-    const { date }: { date: string } = $props();
+    const { date = $bindable(), happening = false }: { date: string, happening?: boolean } = $props();
 
-    const newDate = new Date(date);
+    let newDate = $derived(new Date(date));
 
-    const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][newDate.getMonth()];
-    const year = newDate.getFullYear();
-    const day = newDate.getDate();
+    let month = $derived(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][newDate.getMonth()]);
+    let year = $derived(newDate.getFullYear());
+    let day = $derived(newDate.getDate());
+    let happened = $derived((new Date()) > newDate);
+    
 </script>
 
-<span>Created on {month} {day}, {year}</span>
+{#if happening}
+    <span>Happen{happened ? "ed" : "ing"} on {month} {day}, {year}</span>
+{:else}
+    <span>Created on {month} {day}, {year}</span>
+{/if}
